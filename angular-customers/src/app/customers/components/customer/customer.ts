@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { CustomerResponseEntity } from '../../entities/customer-response.entity';
 
 @Component({
@@ -8,26 +8,32 @@ import { CustomerResponseEntity } from '../../entities/customer-response.entity'
   styleUrl: './customer.scss',
   standalone: false,
 })
-export class Customer implements OnInit, OnDestroy {
+export class CustomerComponent implements OnInit, OnDestroy {
   @Input() customer!: CustomerResponseEntity;
   @Input() refresh!: Subject<unknown>;
   @Output() errorLoadEvent = new EventEmitter();
 
+  public refreshSubscription!: Subscription;
+
   public ngOnInit(): void {
     if (this.refresh) {
-      this.refresh.subscribe((change) => {
+       this.refreshSubscription = this.refresh.subscribe((change) => {
         this.onRefresh(change);
       })
     }
   }
 
   public ngOnDestroy(): void {
-    if (this.refresh) {
-      this.refresh.unsubscribe();
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
     }
   }
 
-  private onRefresh(change: unknown): void {
-    this.refresh.next(change);
+  public onErrorLoad(event: unknown): void {
+    this.errorLoadEvent.emit(event);
+  }
+
+  public onRefresh(change: unknown): void {
+    console.log('Refresh', change);
   }
 }

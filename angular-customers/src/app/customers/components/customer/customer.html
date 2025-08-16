@@ -7,5 +7,7 @@
         <p><strong>Correo:</strong> {{ customer.email }}</p>
         <p><strong>Nombre de usuario:</strong> {{ customer.username}}</p>
         <p><strong>Telefono:</strong> {{ customer.phone }}</p>
+        <button (click)="onRefresh(customer)">Refrescar</button>
+        <button (click)="onErrorLoad('Error de carga')">Simular Error</button>
     </div>    
 </div>

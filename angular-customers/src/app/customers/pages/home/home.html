@@ -15,5 +15,6 @@
             </td>
         </tr>
     </table>
-    <app-customer *ngIf="customerSelected" [customer]="customerSelected" [refresh]="refreshSubject"></app-customer>
+    <app-customer *ngIf="customerSelected" [customer]="customerSelected" [refresh]="refreshSubject"
+        (errorLoadEvent)="onErrorLoad(customerSelected)"></app-customer>
 </div>

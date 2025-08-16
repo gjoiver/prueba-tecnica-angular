@@ -31,6 +31,15 @@ export class Home implements OnInit, OnDestroy {
    this.customerSelected = this.customerService.selectCustomer(customer);
   }
 
+  public onErrorLoad(event: unknown): void {
+    console.error('Error loading customer:', event);  
+  }
+
+  public onRefresh(): void {
+    this.loadCustomers();
+    this.refreshSubject.next({});
+  }
+
   private loadCustomers(): void { 
     this.customerService.getCustomers();
     this.customers = this.customerService.customersList;
