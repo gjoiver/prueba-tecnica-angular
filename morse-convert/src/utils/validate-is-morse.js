@@ -1,6 +1,6 @@
-import { morseToTextMap } from './alphabet-morse-to-text.js';
+import { alphabetMorseToTextMap } from './alphabet-morse-to-text.js';
 
-export const alphabetMorseToTextMap = (text) => {
+export const validateIsMorse = (text) => {
     const chars = ['.', '-', ' ', '/'];
 
     for (const char of text) {
@@ -9,7 +9,7 @@ export const alphabetMorseToTextMap = (text) => {
         }
     }
 
-    const words = text.trimn().split(/ +/);
+    const words = text.trim().split(/ +/);
 
-    return words.every(word => morseToTextMap()[word] !== undefined);
+    return words.every(word => alphabetMorseToTextMap()[word] !== undefined);
 }
